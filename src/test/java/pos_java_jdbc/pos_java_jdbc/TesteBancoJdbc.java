@@ -1,5 +1,8 @@
 package pos_java_jdbc.pos_java_jdbc;
 
+import java.sql.SQLException;
+import java.util.List;
+
 import org.junit.Test;
 
 import dao.UserPosDAO;
@@ -8,7 +11,7 @@ import model.Userposjava;
 
 public class TesteBancoJdbc {
 
-	@Test
+	@Test//essa notação é para poder executar o método diretamente
 	public void initBanco() {
 		UserPosDAO userPosDAO = new UserPosDAO();
 		Userposjava userposjava = new Userposjava();
@@ -19,5 +22,31 @@ public class TesteBancoJdbc {
 		
 		userPosDAO.Salvar(userposjava);
 		
+	}
+	
+	@Test
+	public void initListar() {
+		UserPosDAO dao = new UserPosDAO();
+		try {
+			List<Userposjava> list = dao.listar();
+			for (Userposjava userposjava : list) {
+				System.out.println(userposjava);
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void initBuscar() {
+		UserPosDAO dao = new UserPosDAO();
+		try {
+			
+			Userposjava userposjava = dao.buscar(3L);
+			System.out.println(userposjava);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }
