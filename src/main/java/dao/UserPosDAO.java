@@ -78,4 +78,12 @@ public class UserPosDAO {
 		
 	}
 
+	public void atualizar(Userposjava userposjava) throws SQLException {
+		String sql ="update userposjava set email = ? where id ="+userposjava.getId();
+		PreparedStatement statement = connection.prepareStatement(sql);
+		statement.setString(1, userposjava.getEmail());
+		statement.execute();
+		connection.commit();
+		
+	}
 }
