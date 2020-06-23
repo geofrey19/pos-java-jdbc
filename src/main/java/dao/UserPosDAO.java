@@ -21,12 +21,11 @@ public class UserPosDAO {
 	public void Salvar(Userposjava userposjava) {
 		try {
 			
-			String sql = "insert into userposjava (id,nome,email) values (?,?,?)";
+			String sql = "insert into userposjava (id,nome,email) values (?,?)";
 			/*PreparedStatement faz a operação no banco*/
 			PreparedStatement insert = connection.prepareStatement(sql);
-			insert.setLong(1, userposjava.getId());
-			insert.setString(2, userposjava.getNome());
-			insert.setString(3, userposjava.getEmail());
+			insert.setString(1, userposjava.getNome());
+			insert.setString(2, userposjava.getEmail());
 			insert.execute();
 			connection.commit();//salva no banco
 			
@@ -85,5 +84,21 @@ public class UserPosDAO {
 		statement.execute();
 		connection.commit();
 		
+	}
+	
+	public void deletar(Long id) {
+		try {
+			String sql = "delete from userposjava where id="+id;
+			PreparedStatement statment = connection.prepareStatement(sql);
+			statment.execute();
+			connection.commit();
+		} catch (Exception e) {
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}
 	}
 }
